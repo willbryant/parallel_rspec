@@ -1,5 +1,3 @@
 require "parallel_rspec/version"
-
-module ParallelRSpec
-  # Your code goes here...
-end
+require 'parallel_rspec/railtie' if defined?(Rails)
+require "parallel_rspec/workers"

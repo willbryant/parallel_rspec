@@ -4,10 +4,12 @@ This gem lets you run your RSpec examples in parallel across across your CPUs.  
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this to your application's Gemfile:
 
 ```ruby
-gem 'parallel_rspec'
+group :development, :test do
+  gem 'parallel_rspec'
+end
 ```
 
 And then execute:
@@ -20,6 +22,15 @@ Or install it yourself as:
 
 ## Usage
 
+By default, ParallelRSpec will use two workers.  If you would like to use more, set an environment variable:
+
+    $ export WORKERS=2
+
+ParallelRSpec runs each worker with its own copy of the test database to avoid locking and deadlocking problems.  To create these and populate them with your schema, run:
+
+    $ bundle exec db:parallel:create db:parallel:prepare
+
+ParallelRSpec will automatically make the database name for each worker based on the name you used for the `test` environment in `config/database.yml`.  For example, if your normal `test` database is `foo_test`, worker 1 will keep using `foo_test` but worker 2's database will be `foo_test2`.
 
 ## Contributing
 
