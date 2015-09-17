@@ -1,5 +1,5 @@
 require "parallel_rspec/version"
 
-module ParallelRspec
+module ParallelRSpec
   # Your code goes here...
 end

@@ -5,22 +5,14 @@ require 'parallel_rspec/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "parallel_rspec"
-  spec.version       = ParallelRspec::VERSION
-  spec.authors       = ["Will Bryant"]
+  spec.version       = ParallelRSpec::VERSION
+  spec.authors       = ["Will Bryant, Powershop New Zealand Ltd"]
   spec.email         = ["will.bryant@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{This gem lets you run your RSpec examples in parallel across across your CPUs..}
+  spec.description   = %q{This gem lets you run your RSpec examples in parallel across across your CPUs.  Each worker automatically gets its own database to avoid conflicts.}
+  spec.homepage      = "https://github.com/willbryant/parallel_rspec"
   spec.license       = "MIT"
-
-  # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
-  # delete this section to allow pushing this gem to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
