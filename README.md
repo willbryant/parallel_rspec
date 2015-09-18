@@ -12,13 +12,17 @@ group :development, :test do
 end
 ```
 
+Or if you use Spring:
+
+```ruby
+group :development, :test do
+  gem 'spring-prspec'
+end
+```
+
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install parallel_rspec
 
 This version of ParallelRSpec has been tested with RSpec 3.3.
 
@@ -37,6 +41,15 @@ ParallelRSpec will automatically make the database name for each worker based on
 You're then ready to run specs in parallel:
 
     $ bundle exec prspec spec/my_spec.rb spec/another_spec.rb
+
+Or if you use Spring:
+
+    $ bundle exec spring prspec spec/my_spec.rb spec/another_spec.rb
+
+You may like to make an alias:
+
+    $ alias prspec='bundle exec spring prspec'
+    $ prspec spec/my_spec.rb spec/another_spec.rb
 
 ## Contributing
 
