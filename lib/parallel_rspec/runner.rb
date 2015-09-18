@@ -62,8 +62,10 @@ module ParallelRSpec
     end
 
     def run_in_parallel(example_groups, reporter)
+      server = Server.new(reporter)
       workers = Workers.new
-      workers.run_test_workers do |worker|
+      workers.run_test_workers_with_server(server) do |worker, channel_to_server|
+        client = Client.new(channel_to_server)
         index = 0
         RSpec.world.filtered_examples.each do |group, examples|
           examples.reject! do |example|
@@ -71,10 +73,10 @@ module ParallelRSpec
             (index % workers.number_of_workers) != (worker % workers.number_of_workers)
           end
         end
-        success = example_groups.map { |g| g.run(reporter) }.all?
-        reporter.finish
-        success
+        success = example_groups.map { |g| g.run(client) }.all?
+        channel_to_server.write([:result, success])
       end
+      server.success?
     end
   end
 end

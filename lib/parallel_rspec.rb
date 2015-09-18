@@ -1,4 +1,8 @@
 require "parallel_rspec/version"
+require "parallel_rspec/channel"
 require "parallel_rspec/workers"
+require "parallel_rspec/example"
+require "parallel_rspec/server"
+require "parallel_rspec/client"
 require "parallel_rspec/runner"
 require "parallel_rspec/railtie"
