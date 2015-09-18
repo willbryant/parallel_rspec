@@ -1,3 +1,5 @@
+require 'rails'
+
 module ParallelRSpec
   class Railtie < Rails::Railtie
     railtie_name :parallel_rspec

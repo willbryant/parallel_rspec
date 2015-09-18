@@ -20,6 +20,8 @@ Or install it yourself as:
 
     $ gem install parallel_rspec
 
+This version of ParallelRSpec has been tested with RSpec 3.3.
+
 ## Usage
 
 By default, ParallelRSpec will use two workers.  If you would like to use more, set an environment variable:
@@ -32,9 +34,13 @@ ParallelRSpec runs each worker with its own copy of the test database to avoid l
 
 ParallelRSpec will automatically make the database name for each worker based on the name you used for the `test` environment in `config/database.yml`.  For example, if your normal `test` database is `foo_test`, worker 1 will keep using `foo_test` but worker 2's database will be `foo_test2`.
 
+You're then ready to run specs in parallel:
+
+    $ bundle exec prspec spec/my_spec.rb spec/another_spec.rb
+
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/parallel_rspec.
+Bug reports and pull requests are welcome on GitHub at https://github.com/willbryant/parallel_rspec.
 
 
 ## License
