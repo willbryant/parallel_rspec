@@ -1,17 +1,17 @@
-require 'lib/parallel_workers.rb'
+require 'parallel_rspec/workers.rb'
 
 db_namespace = namespace :db do
   namespace :parallel do
     # desc "Creates the test database"
     task :create => [:load_config] do
-      ParallelWorkers.new.run_test_workers do |worker|
+      ParallelRSpec::Workers.new.run_test_workers do |worker|
         ActiveRecord::Tasks::DatabaseTasks.create ActiveRecord::Base.configurations['test']
       end
     end
 
     # desc "Empty the test database"
     task :purge => %w(environment load_config) do
-      ParallelWorkers.new.run_test_workers do |worker|
+      ParallelRSpec::Workers.new.run_test_workers do |worker|
         ActiveRecord::Tasks::DatabaseTasks.purge ActiveRecord::Base.configurations['test']
       end
     end
@@ -20,7 +20,7 @@ db_namespace = namespace :db do
     task :load_schema => %w(db:parallel:purge) do
       should_reconnect = ActiveRecord::Base.connection_pool.active_connection?
       begin
-        ParallelWorkers.new.run_test_workers do |worker|
+        ParallelRSpec::Workers.new.run_test_workers do |worker|
           ActiveRecord::Schema.verbose = false
           ActiveRecord::Tasks::DatabaseTasks.load_schema_for ActiveRecord::Base.configurations['test'], :ruby, ENV['SCHEMA']
         end
@@ -33,7 +33,7 @@ db_namespace = namespace :db do
 
     # desc "Recreate the test database from an existent structure.sql file"
     task :load_structure => %w(db:parallel:purge) do
-      ParallelWorkers.new.run_test_workers do |worker|
+      ParallelRSpec::Workers.new.run_test_workers do |worker|
         ActiveRecord::Tasks::DatabaseTasks.load_schema_for ActiveRecord::Base.configurations['test'], :sql, ENV['SCHEMA']
       end
     end
