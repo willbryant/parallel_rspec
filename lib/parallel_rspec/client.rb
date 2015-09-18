@@ -7,9 +7,11 @@ module ParallelRSpec
     end
 
     def example_group_started(group)
+      # not implemented yet - would need the same extraction/simplification for serialization as Example below
     end
 
     def example_group_finished(group)
+      # ditto
     end
 
     def example_started(example)
