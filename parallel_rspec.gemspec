@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Will Bryant, Powershop New Zealand Ltd"]
   spec.email         = ["will.bryant@gmail.com"]
 
-  spec.summary       = %q{This gem lets you run your RSpec examples in parallel across across your CPUs..}
-  spec.description   = %q{This gem lets you run your RSpec examples in parallel across across your CPUs.  Each worker automatically gets its own database to avoid conflicts.}
+  spec.summary       = %q{This gem lets you run your RSpec examples in parallel across across your CPUs.}
+  spec.description   = %q{This gem lets you run your RSpec examples in parallel across across your CPUs.  Each worker automatically gets its own database to avoid conflicts.  The optional spring-prspec gem adds support for running under Spring.}
   spec.homepage      = "https://github.com/willbryant/parallel_rspec"
   spec.license       = "MIT"
 
