@@ -74,7 +74,7 @@ module ParallelRSpec
           end
         end
         success = example_groups.map { |g| g.run(client) }.all?
-        channel_to_server.write([:result, success])
+        client.result(success)
       end
       server.success?
     end

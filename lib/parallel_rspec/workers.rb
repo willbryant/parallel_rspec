@@ -46,7 +46,7 @@ module ParallelRSpec
       while !channels.empty?
         Channel.read_select(channels).each do |channel|
           if command = channel.read
-            server.send(*command)
+            server.send(*(command + [channel]))
           else
             channels.delete(channel)
           end

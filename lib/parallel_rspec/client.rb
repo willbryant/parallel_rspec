@@ -57,5 +57,9 @@ module ParallelRSpec
           :shared_group_inclusion_backtrace,
           :type))
     end
+
+    def result(success)
+      channel_to_server.write([:result, success])
+    end
   end
 end
