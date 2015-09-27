@@ -30,7 +30,7 @@ This version of ParallelRSpec has been tested with RSpec 3.3.
 
 By default, ParallelRSpec will use two workers.  If you would like to use more, set an environment variable:
 
-    $ export WORKERS=2
+    $ export WORKERS=4
 
 ParallelRSpec runs each worker with its own copy of the test database to avoid locking and deadlocking problems.  To create these and populate them with your schema, run:
 

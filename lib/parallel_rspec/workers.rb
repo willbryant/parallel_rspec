@@ -2,7 +2,7 @@ module ParallelRSpec
   class Workers
     def self.number_of_workers
       workers = ENV['WORKERS'].to_i
-      workers = 4 if workers.zero?
+      workers = 2 if workers.zero?
       workers
     end
 
