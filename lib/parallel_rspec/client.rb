@@ -58,6 +58,11 @@ module ParallelRSpec
           :type))
     end
 
+    def next_example_to_run
+      channel_to_server.write([:next_example_to_run])
+      channel_to_server.read
+    end
+
     def result(success)
       channel_to_server.write([:result, success])
     end

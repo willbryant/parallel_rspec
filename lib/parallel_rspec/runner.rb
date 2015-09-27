@@ -66,14 +66,13 @@ module ParallelRSpec
       workers = Workers.new
       workers.run_test_workers_with_server(server) do |worker, channel_to_server|
         client = Client.new(channel_to_server)
-        index = 0
-        RSpec.world.filtered_examples.each do |group, examples|
-          examples.reject! do |example|
-            index += 1
-            (index % workers.number_of_workers) != (worker % workers.number_of_workers)
-          end
+        success = true
+        while next_example = client.next_example_to_run
+          example_group, example_index = *next_example
+          example = RSpec.world.filtered_examples[example_group][example_index]
+          example_group_instance = example_group.new(example.inspect_output)
+          success = example.run(example_group_instance, client) && success
         end
-        success = example_groups.map { |g| g.run(client) }.all?
         client.result(success)
       end
       server.success?
