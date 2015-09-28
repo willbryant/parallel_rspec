@@ -34,7 +34,7 @@ By default, ParallelRSpec will use two workers.  If you would like to use more, 
 
 ParallelRSpec runs each worker with its own copy of the test database to avoid locking and deadlocking problems.  To create these and populate them with your schema, run:
 
-    $ bundle exec db:parallel:create db:parallel:prepare
+    $ bundle exec rake db:parallel:create db:parallel:prepare
 
 ParallelRSpec will automatically make the database name for each worker based on the name you used for the `test` environment in `config/database.yml`.  For example, if your normal `test` database is `foo_test`, worker 1 will keep using `foo_test` but worker 2's database will be `foo_test2`.
 
