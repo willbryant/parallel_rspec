@@ -55,8 +55,8 @@ module ParallelRSpec
     end
 
     def establish_test_database_connection(worker)
+      ENV['TEST_ENV_NUMBER'] = worker.to_s
       if defined?(ActiveRecord)
-        ENV['TEST_ENV_NUMBER'] = worker.to_s
         ActiveRecord::Base.configurations['test']['database'] << worker.to_s unless worker == 1
         ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
       end
