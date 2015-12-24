@@ -26,6 +26,10 @@ module ParallelRSpec
       channel_to_server.write([:example_failed, serialize_example(example)])
     end
 
+    def example_finished(example)
+      channel_to_server.write([:example_finished, serialize_example(example)])
+    end
+
     def example_pending(example)
       channel_to_server.write([:example_pending, serialize_example(example)])
     end
