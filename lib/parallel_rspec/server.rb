@@ -22,6 +22,10 @@ module ParallelRSpec
       reporter.example_failed(example)
     end
 
+    def example_finished(example, channel_to_client)
+      reporter.example_finished(example)
+    end
+
     def example_pending(example, channel_to_client)
       reporter.example_pending(example)
     end
