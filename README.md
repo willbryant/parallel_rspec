@@ -69,6 +69,11 @@ To set up a rake task which uses parallel_rspec, use, for example:
 Bug reports and pull requests are welcome on GitHub at https://github.com/willbryant/parallel_rspec.
 
 
+## Thanks
+
+* Charles Horn (@hornc)
+
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
