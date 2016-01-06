@@ -53,6 +53,17 @@ You may like to make an alias:
 
 When you change WORKERS, don't forget to restart Spring and re-run the create and populate steps above if necessary.
 
+To set up a rake task which uses parallel_rspec, use, for example:
+
+```ruby
+  ParallelRSpec::RakeTask.new(:prspec) do |t|
+    ENV['WORKERS'] = '4'
+    t.pattern = "**/spec/*_spec.rb"
+    t.rspec_opts = "--tag parallel"
+    # etc...
+  end
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/willbryant/parallel_rspec.
