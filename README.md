@@ -56,6 +56,8 @@ When you change WORKERS, don't forget to restart Spring and re-run the create an
 To set up a rake task which uses parallel_rspec, use, for example:
 
 ```ruby
+  require 'parallel_rspec'
+
   ParallelRSpec::RakeTask.new(:prspec) do |t|
     ENV['WORKERS'] = '4'
     t.pattern = "**/spec/*_spec.rb"
