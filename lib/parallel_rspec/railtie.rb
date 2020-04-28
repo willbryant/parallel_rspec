@@ -1,11 +1,14 @@
-require 'rails'
+begin
+  require 'rails'
 
-module ParallelRSpec
-  class Railtie < Rails::Railtie
-    railtie_name :parallel_rspec
+  module ParallelRSpec
+    class Railtie < Rails::Railtie
+      railtie_name :parallel_rspec
 
-    rake_tasks do
-      load "parallel_rspec/tasks.rake"
+      rake_tasks do
+        load "parallel_rspec/tasks.rake"
+      end
     end
   end
+rescue LoadError
 end
