@@ -30,6 +30,11 @@ module ParallelRSpec
         pid = fork do
           channel_to_client.close
           establish_test_database_connection(worker)
+
+          Config.after_fork.each do |proc|
+            proc.call(worker)
+          end
+
           yield worker, channel_to_server
         end
 
