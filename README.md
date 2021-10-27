@@ -24,7 +24,7 @@ And then execute:
 
     $ bundle
 
-This version of ParallelRSpec has been tested with RSpec 3.3.
+This version of ParallelRSpec has been tested with RSpec 3.10.
 
 ## Usage
 
@@ -90,6 +90,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/willbr
 ## Thanks
 
 * Charles Horn (@hornc)
+* Roger Nesbitt (@mogest)
 
 
 ## License
