@@ -22,7 +22,11 @@ db_namespace = namespace :db do
       begin
         ParallelRSpec::Workers.new.run_test_workers do |worker|
           ActiveRecord::Schema.verbose = false
-          ActiveRecord::Tasks::DatabaseTasks.load_schema_for ActiveRecord::Base.configurations['test'], :ruby, ENV['SCHEMA']
+          if ActiveRecord::Tasks::DatabaseTasks.respond_to?(:load_schema_current)
+            ActiveRecord::Tasks::DatabaseTasks.load_schema_current :ruby, ENV['SCHEMA'], 'test'
+          else
+            ActiveRecord::Tasks::DatabaseTasks.load_schema_for ActiveRecord::Base.configurations['test'], :ruby, ENV['SCHEMA']
+          end
         end
       ensure
         if should_reconnect
@@ -34,7 +38,11 @@ db_namespace = namespace :db do
     # desc "Recreate the test database from an existent structure.sql file"
     task :load_structure => %w(db:parallel:purge) do
       ParallelRSpec::Workers.new.run_test_workers do |worker|
-        ActiveRecord::Tasks::DatabaseTasks.load_schema_for ActiveRecord::Base.configurations['test'], :sql, ENV['SCHEMA']
+        if ActiveRecord::Tasks::DatabaseTasks.respond_to?(:load_schema_current)
+          ActiveRecord::Tasks::DatabaseTasks.load_schema_current :sql, ENV['SCHEMA'], 'test'
+        else
+          ActiveRecord::Tasks::DatabaseTasks.load_schema_for ActiveRecord::Base.configurations['test'], :sql, ENV['SCHEMA']
+        end
       end
     end
 

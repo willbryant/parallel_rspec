@@ -30,6 +30,11 @@ module ParallelRSpec
         pid = fork do
           channel_to_client.close
           establish_test_database_connection(worker)
+
+          Config.after_fork.each do |proc|
+            proc.call(worker)
+          end
+
           yield worker, channel_to_server
         end
 
@@ -57,8 +62,16 @@ module ParallelRSpec
     def establish_test_database_connection(worker)
       ENV['TEST_ENV_NUMBER'] = worker.to_s
       if defined?(ActiveRecord)
-        ActiveRecord::Base.configurations['test']['database'] << worker.to_s unless worker == 1
-        ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
+        if ActiveRecord::Base.configurations.respond_to?(:configs_for)
+          ActiveRecord::Base.configurations.configs_for(env_name: 'test').each do |configuration|
+            configuration.database << worker.to_s unless worker == 1
+            ActiveRecord::Base.establish_connection(configuration)
+          end
+        else
+          configuration = ActiveRecord::Base.configurations['test']
+          configuration.with_indifferent_access['database'] << worker.to_s unless worker == 1
+          ActiveRecord::Base.establish_connection(configuration)
+        end
       end
     end
 

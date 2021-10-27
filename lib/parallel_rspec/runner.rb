@@ -16,6 +16,12 @@ end
 
 module ParallelRSpec
   class Runner < RSpec::Core::Runner
+    @@running = false
+
+    def self.running?
+      @@running
+    end
+
     # Runs the suite of specs and exits the process with an appropriate exit
     # code.
     def self.invoke
@@ -39,6 +45,7 @@ module ParallelRSpec
     #   or the configured failure exit code (1 by default) if specs
     #   failed.
     def self.run(args, err=$stderr, out=$stdout)
+      @@running = true
       RSpec::Core::Runner.trap_interrupt
       options = RSpec::Core::ConfigurationOptions.new(args)
       new(options).run(err, out)

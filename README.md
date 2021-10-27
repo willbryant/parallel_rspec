@@ -66,6 +66,22 @@ To set up a rake task which uses parallel_rspec, use, for example:
   end
 ```
 
+If you'd like code to run after parallel_rspec has created each worker, you can specify a block to run:
+
+```ruby
+  ParallelRSpec.configure do |config|
+    config.after_fork do |worker_number|
+      puts "I am worker #{worker_number}"
+    end
+  end
+```
+
+You might also want to detect whether your spec suite is running under ParallelRSpec or not:
+
+```ruby
+  do_something unless ParallelRSpec.running?
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/willbryant/parallel_rspec.

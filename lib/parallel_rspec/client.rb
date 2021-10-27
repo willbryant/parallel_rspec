@@ -44,6 +44,7 @@ module ParallelRSpec
         example.description,
         example.exception,
         example.location_rerun_argument,
+        ExampleGroup.new([]),
         example.metadata.slice(
           :absolute_file_path,
           :described_class,
