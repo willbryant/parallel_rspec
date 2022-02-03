@@ -65,3 +65,7 @@ db_namespace = namespace :db do
     end
   end
 end
+
+ParallelRSpec::RakeTask.new(:parallel_rspec) do |t|
+  t.pattern = "spec/**/*_spec.rb"
+end
