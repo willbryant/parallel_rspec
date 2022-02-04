@@ -5,14 +5,24 @@ db_namespace = namespace :db do
     desc "Creates the test databases"
     task :create => [:load_config] do
       ParallelRSpec::Workers.new.run_test_workers do |worker|
-        ActiveRecord::Tasks::DatabaseTasks.create ActiveRecord::Base.configurations['test']
+        if ActiveRecord::Base.configurations.respond_to?(:configs_for)
+          ActiveRecord::Base.configurations.configs_for(env_name: 'test').each do |configuration|
+            ActiveRecord::Tasks::DatabaseTasks.create configuration
+          end
+        else
+          ActiveRecord::Tasks::DatabaseTasks.create ActiveRecord::Base.configurations['test']
+        end
       end
     end
 
     desc "Empty the test databases"
     task :purge => %w(environment load_config) do
       ParallelRSpec::Workers.new.run_test_workers do |worker|
-        ActiveRecord::Tasks::DatabaseTasks.purge ActiveRecord::Base.configurations['test']
+        if ActiveRecord::Tasks::DatabaseTasks.respond_to?(:purge_current)
+          ActiveRecord::Tasks::DatabaseTasks.purge_current 'test'
+        else
+          ActiveRecord::Tasks::DatabaseTasks.purge ActiveRecord::Base.configurations['test']
+        end
       end
     end
 
