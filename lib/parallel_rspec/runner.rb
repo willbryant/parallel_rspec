@@ -6,8 +6,8 @@ module RSpec
       def self.any_context_hooks?
         # unfortunately the public HookCollection API doesn't make this information available, so we have to grab it from internals
         descendants.any? do |group| # despite the name, descendents includes self
-          group.hooks.send(:matching_hooks_for, :before, :context, group).present? ||
-            group.hooks.send(:matching_hooks_for, :after, :context, group).present?
+          group.hooks.send(:matching_hooks_for, :before, :context, group).any? ||
+            group.hooks.send(:matching_hooks_for, :after, :context, group).any?
         end
       end
     end
