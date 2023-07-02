@@ -15,52 +15,38 @@ module ParallelRSpec
     end
 
     def example_started(example)
-      channel_to_server.write([:example_started, serialize_example(example)])
+      channel_to_server.write([:example_started, example.id, updates_from(example)])
     end
 
     def example_passed(example)
-      channel_to_server.write([:example_passed, serialize_example(example)])
+      channel_to_server.write([:example_passed, example.id, updates_from(example)])
     end
 
     def example_failed(example)
-      channel_to_server.write([:example_failed, serialize_example(example)])
+      channel_to_server.write([:example_failed, example.id, updates_from(example)])
     end
 
     def example_finished(example)
-      channel_to_server.write([:example_finished, serialize_example(example)])
+      channel_to_server.write([:example_finished, example.id, updates_from(example)])
     end
 
     def example_pending(example)
-      channel_to_server.write([:example_pending, serialize_example(example)])
+      channel_to_server.write([:example_pending, example.id, updates_from(example)])
     end
 
     def deprecation(hash)
       channel_to_server.write([:deprecation, hash])
     end
 
-    def serialize_example(example)
-      Example.new(
-        example.id,
-        example.description,
-        example.exception,
-        example.location_rerun_argument,
-        ExampleGroup.new([]),
-        example.metadata.slice(
-          :absolute_file_path,
-          :described_class,
-          :description,
-          :description_args,
+    def updates_from(example)
+      {
+        exception: example.exception,
+        metadata: example.metadata.slice(
           :execution_result,
-          :full_description,
-          :file_path,
-          :last_run_status,
-          :line_number,
-          :location,
           :pending,
-          :rerun_file_path,
-          :scoped_id,
-          :shared_group_inclusion_backtrace,
-          :type))
+          :skip,
+        )
+      }
     end
 
     def next_example_to_run
