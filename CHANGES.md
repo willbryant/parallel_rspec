@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0
+
+* Fix incompatibility with `rspec --profile`.
+
 ## 2.1.2
 
 * Fix error when used in projects without ActiveSupport. Thanks @erikpaasonen.
