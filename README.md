@@ -24,7 +24,7 @@ And then execute:
 
     $ bundle
 
-This version of ParallelRSpec has been tested with RSpec 3.10.
+This version of ParallelRSpec has been tested with RSpec 3.12.
 
 ## Usage
 
@@ -81,6 +81,10 @@ You might also want to detect whether your spec suite is running under ParallelR
 ```ruby
   do_something unless ParallelRSpec.running?
 ```
+
+## Limitations
+
+ParallelRSpec can't parallelize the specs in groups that use `before(:context)` or `after(:context)` (AKA `before(:all)` or `after(:all)`) hooks, since these may mean that there is state shared between examples.
 
 ## Contributing
 
