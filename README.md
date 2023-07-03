@@ -28,9 +28,9 @@ This version of ParallelRSpec has been tested with RSpec 3.12.
 
 ## Usage
 
-By default, ParallelRSpec will use two workers.  If you would like to use more, set an environment variable:
+By default, ParallelRSpec will use four workers.  If you would like to use more, set an environment variable:
 
-    $ export WORKERS=4
+    $ export WORKERS=8
 
 ParallelRSpec runs each worker with its own copy of the test database to avoid locking and deadlocking problems.  To create these and populate them with your schema, run:
 
@@ -59,7 +59,7 @@ By default, there's a task called `parallel_rspec` which will run all specs. To 
   require 'parallel_rspec'
 
   ParallelRSpec::RakeTask.new(:prspec) do |t|
-    ENV['WORKERS'] = '4'
+    ENV['WORKERS'] = '8'
     t.pattern = "spec/**/*_spec.rb"
     t.rspec_opts = "--tag parallel"
     # etc...
