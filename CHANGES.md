@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0
+
+* Increase default workers from 2 to 4.
+* Fix behavioral inconsistency with rspec-core in nested describe blocks on helper methods with clashing let methods.
+
 ## 2.2.0
 
 * Fix incompatibility with `rspec --profile`.
