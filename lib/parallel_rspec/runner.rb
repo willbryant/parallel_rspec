@@ -77,6 +77,7 @@ module ParallelRSpec
         while next_example = client.next_example_to_run
           example_group, example_index = *next_example
           example = RSpec.world.filtered_examples[example_group][example_index]
+          example_group.parent_groups.reverse_each { |parent_group| parent_group.new("dummy instance to trigger helper loading order") }
           example_group_instance = example_group.new(example.inspect_output)
           success = example.run(example_group_instance, client) && success
         end
