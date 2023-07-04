@@ -59,7 +59,8 @@ db_namespace = namespace :db do
     desc "Recreate the test databases from the current schema"
     task :load do
       db_namespace["parallel:purge"].invoke
-      case ActiveRecord::Base.schema_format
+      schema_format = ActiveRecord.respond_to?(:schema_format) ? ActiveRecord.schema_format : ActiveRecord::Base.schema_format
+      case schema_format
       when :ruby
         db_namespace["parallel:load_schema"].invoke
       when :sql
