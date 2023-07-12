@@ -85,6 +85,7 @@ module ParallelRSpec
     end
 
     def next_example_to_run
+      return nil if RSpec.world.wants_to_quit
       channel_to_server.write([:next_example_to_run])
       channel_to_server.read
     end
