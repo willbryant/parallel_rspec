@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.1
+
+* Exit workers promptly if asked to quit.
+
 ## 2.4.0
 
 * Wrap Exception objects so they can always be dumped and loaded, even if they contain non-marshallable objects such as Procs or anonymous classes.
