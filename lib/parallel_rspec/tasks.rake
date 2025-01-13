@@ -40,7 +40,13 @@ db_namespace = namespace :db do
         end
       ensure
         if should_reconnect
-          ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
+          if ActiveRecord::Base.configurations.respond_to?(:configs_for)
+            ActiveRecord::Base.configurations.configs_for(env_name: 'test').each do |configuration|
+              ActiveRecord::Base.establish_connection(configuration)
+            end
+          else
+            ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations['test'])
+          end
         end
       end
     end

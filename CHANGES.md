@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.2
+
+* Fix more calls to deprecated `ActiveRecord::Base.configurations[]`.
+
 ## 2.4.1
 
 * Exit workers promptly if asked to quit.
@@ -23,7 +27,7 @@
 
 ## 2.1.1
 
-* Fix deprecation warnings from ActiveRecord::Base.configurations[].
+* Fix deprecation warnings from `ActiveRecord::Base.configurations[]`.
 
 ## 2.1.0
 
