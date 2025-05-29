@@ -63,6 +63,9 @@ module ParallelRSpec
           with_context_hooks, without_context_hooks = example_groups.partition(&:any_context_hooks?)
           success = run_in_parallel(without_context_hooks, reporter)
           success &&= with_context_hooks.map { |g| g.run(reporter) }.all?
+
+          persist_example_statuses
+
           success ? 0 : @configuration.failure_exit_code
         end
       end
