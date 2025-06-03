@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.0
+
+* Update the RSpec example persistence file after each run. Thanks @bagedevimo.
+
 ## 2.4.2
 
 * Fix more calls to deprecated `ActiveRecord::Base.configurations[]`.
