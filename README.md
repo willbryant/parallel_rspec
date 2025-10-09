@@ -1,6 +1,6 @@
 # ParallelRSpec
 
-This gem lets you run your RSpec examples in parallel across across your CPUs.  Each worker gets its own database to avoid conflicts.
+This gem lets you run your RSpec examples in parallel across your CPUs.  Each worker gets its own database to avoid conflicts.
 
 ## Installation
 
