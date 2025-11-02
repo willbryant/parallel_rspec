@@ -1,6 +1,6 @@
 module ParallelRSpec
   class Server
-    attr_reader :reporter, :remaining_examples_by_group, :running_examples
+    attr_reader :reporter, :remaining_examples_by_group, :running_examples, :top_level_groups
 
     def initialize(reporter)
       @remaining_examples_by_group = RSpec.world.filtered_examples.each_with_object({}) do |(example_group, examples), results|
@@ -9,14 +9,34 @@ module ParallelRSpec
       @reporter = reporter
       @success = true
       @running_examples = {}
+      @top_level_groups = @remaining_examples_by_group.each_with_object({}) do |(group, examples), results|
+        results[top_level(group)] ||= { started: false, count: 0 }
+        results[top_level(group)][:count] += examples.size
+      end
+    end
+
+    def report_example_group_started(group)
+      top_level_group = top_level(group)
+      return if top_level_groups[top_level_group][:started] # already reported as started
+
+      top_level_groups[top_level_group][:started] = true
+      reporter.example_group_started(top_level_group)
+    end
+
+    def report_example_group_finished(group)
+      top_level_group = top_level(group)
+      top_level_groups[top_level_group][:count] -= 1
+      reporter.example_group_finished(top_level_group) if top_level_groups[top_level_group][:count].zero?
     end
 
     def example_started(example_id, example_updates, channel_to_client)
       reporter.example_started(update_example(running_examples[example_id], example_updates))
+      report_example_group_started(running_examples[example_id].example_group)
     end
 
     def example_finished(example_id, example_updates, channel_to_client)
       reporter.example_finished(update_example(running_examples[example_id], example_updates))
+      report_example_group_finished(running_examples[example_id].example_group)
     end
 
     def example_passed(example_id, example_updates, channel_to_client)
@@ -59,6 +79,12 @@ module ParallelRSpec
       example.set_exception(data[:exception])
       example.metadata.merge!(data[:metadata])
       example
+    end
+
+    private
+
+    def top_level(example_group)
+      example_group.parent_groups.last
     end
   end
 end
