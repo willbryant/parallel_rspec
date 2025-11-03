@@ -96,6 +96,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/willbr
 * Charles Horn (@hornc)
 * Roger Nesbitt (@mogest)
 * Erik Paasonen (@erikpaasonen)
+* Peter Retzlaff (@peret)
 
 
 ## License
