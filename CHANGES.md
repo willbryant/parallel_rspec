@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0
+
+* Fix `--profile` support. Thanks @peret.
+
 ## 2.5.0
 
 * Update the RSpec example persistence file after each run. Thanks @bagedevimo.
