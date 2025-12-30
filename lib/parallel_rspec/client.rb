@@ -1,3 +1,5 @@
+require "rspec/core"
+
 module ParallelRSpec
   # Some Exception objects contain non-marshallable ivars such as Proc objects. This wrapper
   # represents the bits needed by RSpec's ExceptionPresenter, and can be dumped and loaded.
@@ -25,6 +27,20 @@ module ParallelRSpec
         message == other.message &&
         backtrace == other.backtrace &&
         cause == other.cause
+    end
+  end
+
+  class MultipleExceptionMarshallingWrapper < ExceptionMarshallingWrapper
+    include ::RSpec::Core::MultipleExceptionError::InterfaceTag
+
+    attr_reader :all_exceptions, :aggregation_block_label, :aggregation_metadata, :exception_count_description
+
+    def initialize(class_name, message, backtrace, cause, all_exceptions, aggregation_block_label, aggregation_metadata, exception_count_description)
+      super(class_name, message, backtrace, cause)
+      @all_exceptions = all_exceptions
+      @aggregation_block_label = aggregation_block_label
+      @aggregation_metadata = aggregation_metadata
+      @exception_count_description = exception_count_description
     end
   end
 
@@ -72,8 +88,30 @@ module ParallelRSpec
     end
 
     def dumpable_exception(exception)
-      return exception if exception.nil? || exception.is_a?(ExceptionMarshallingWrapper)
-      ExceptionMarshallingWrapper.new(exception.class.name, exception.message, exception.backtrace, dumpable_exception(exception.cause))
+      case exception
+      when nil
+        nil
+      when ExceptionMarshallingWrapper
+        exception
+      when ::RSpec::Core::MultipleExceptionError::InterfaceTag
+        MultipleExceptionMarshallingWrapper.new(
+          exception.class.name,
+          exception.message,
+          exception.backtrace,
+          dumpable_exception(exception.cause),
+          exception.all_exceptions.map { |exception| dumpable_exception(exception) },
+          exception.aggregation_block_label,
+          exception.aggregation_metadata,
+          exception.exception_count_description,
+        )
+      else
+        ExceptionMarshallingWrapper.new(
+          exception.class.name,
+          exception.message,
+          exception.backtrace,
+          dumpable_exception(exception.cause),
+        )
+      end
     end
 
     def next_example_to_run
