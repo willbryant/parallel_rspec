@@ -73,7 +73,7 @@ module ParallelRSpec
 
     def dumpable_exception(exception)
       return exception if exception.nil? || exception.is_a?(ExceptionMarshallingWrapper)
-      ExceptionMarshallingWrapper.new(exception.class.name, exception.to_s, exception.backtrace, dumpable_exception(exception.cause))
+      ExceptionMarshallingWrapper.new(exception.class.name, exception.message, exception.backtrace, dumpable_exception(exception.cause))
     end
 
     def next_example_to_run
