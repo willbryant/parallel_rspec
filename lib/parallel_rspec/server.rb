@@ -56,7 +56,7 @@ module ParallelRSpec
     end
 
     def next_example_to_run(channel_to_client)
-      if remaining_examples_by_group.empty?
+      if remaining_examples_by_group.empty? || reporter.fail_fast_limit_met?
         channel_to_client.write(nil)
       else
         example_group = remaining_examples_by_group.keys.first
