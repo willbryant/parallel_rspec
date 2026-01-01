@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0
+
+* Fix reporting of `aggregate_failures` errors.
+* Add this gem's files to the backtrace filter RSpec uses to exclude its own files from failure messages.
+* Implement `--fail-fast` support.
+
 ## 2.6.0
 
 * Fix `--profile` support. Thanks @peret.
