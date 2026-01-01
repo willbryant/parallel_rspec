@@ -18,12 +18,12 @@
 
 ## 2.4.0
 
-* Wrap Exception objects so they can always be dumped and loaded, even if they contain non-marshallable objects such as Procs or anonymous classes.
+* Wrap `Exception` objects so they can always be dumped and loaded, even if they contain non-marshallable objects such as `Proc`s or anonymous classes.
 
 ## 2.3.0
 
 * Increase default workers from 2 to 4.
-* Fix behavioral inconsistency with rspec-core in nested describe blocks on helper methods with clashing let methods.
+* Fix behavioral inconsistency with rspec-core in nested describe blocks on helper methods with clashing `let` methods.
 
 ## 2.2.0
 
@@ -39,13 +39,13 @@
 
 ## 2.1.0
 
-* Add a default parallel_rspec rake task.
-* Add task descriptions for rake --tasks.
+* Add a default `parallel_rspec` rake task.
+* Add task descriptions for `rake --tasks`.
 
 ## 2.0.0
 
 * Remove an unnecessary dev dependency to pacify dependabot.
-* Add after_fork hook and running? method. Thanks @mogest.
+* Add `after_fork` hook and `running?` method. Thanks @mogest.
 * Upgrade for compatibility with Rails 6.1 and RSpec 3.10. Thanks @mogest.
 
 ## 1.2.0
