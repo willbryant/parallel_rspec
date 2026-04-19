@@ -33,14 +33,15 @@ module ParallelRSpec
   class MultipleExceptionMarshallingWrapper < ExceptionMarshallingWrapper
     include ::RSpec::Core::MultipleExceptionError::InterfaceTag
 
-    attr_reader :all_exceptions, :aggregation_block_label, :aggregation_metadata, :exception_count_description
+    attr_reader :all_exceptions, :aggregation_block_label, :aggregation_metadata, :exception_count_description, :summary
 
-    def initialize(class_name, message, backtrace, cause, all_exceptions, aggregation_block_label, aggregation_metadata, exception_count_description)
+    def initialize(class_name, message, backtrace, cause, all_exceptions, aggregation_block_label, aggregation_metadata, exception_count_description, summary)
       super(class_name, message, backtrace, cause)
       @all_exceptions = all_exceptions
       @aggregation_block_label = aggregation_block_label
       @aggregation_metadata = aggregation_metadata
       @exception_count_description = exception_count_description
+      @summary = summary
     end
   end
 
@@ -103,6 +104,7 @@ module ParallelRSpec
           exception.aggregation_block_label,
           exception.aggregation_metadata,
           exception.exception_count_description,
+          exception.summary,
         )
       else
         ExceptionMarshallingWrapper.new(
