@@ -24,7 +24,7 @@ And then execute:
 
     $ bundle
 
-This version of ParallelRSpec has been tested with RSpec 3.12.
+This version of ParallelRSpec has been tested with RSpec 3.13.
 
 ## Usage
 
