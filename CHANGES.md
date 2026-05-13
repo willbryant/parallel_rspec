@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0
+
+* Fix example groups with context hooks not being run if any example groups without context hooks failed. Thanks @h-lame.
+
 ## 3.0.0
 
 * Fix reporting of `aggregate_failures` errors.
