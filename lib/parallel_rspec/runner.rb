@@ -61,12 +61,12 @@ module ParallelRSpec
       @configuration.reporter.report(@world.example_count(example_groups)) do |reporter|
         @configuration.with_suite_hooks do
           with_context_hooks, without_context_hooks = example_groups.partition(&:any_context_hooks?)
-          success = run_in_parallel(without_context_hooks, reporter)
-          success &&= with_context_hooks.map { |g| g.run(reporter) }.all?
+          parallel_success = run_in_parallel(without_context_hooks, reporter)
+          sequential_success = with_context_hooks.map { |g| g.run(reporter) }.all?
 
           persist_example_statuses
 
-          success ? 0 : @configuration.failure_exit_code
+          (parallel_success && sequential_success) ? 0 : @configuration.failure_exit_code
         end
       end
     end
