@@ -66,6 +66,10 @@ module ParallelRSpec
 
           persist_example_statuses
 
+          if defined?(ParallelRSpec) && ParallelRSpec.respond_to?(:simplecov_enabled?) && ParallelRSpec.simplecov_enabled?
+            ParallelRSpec.collate_simplecov!
+          end
+
           (parallel_success && sequential_success) ? 0 : @configuration.failure_exit_code
         end
       end

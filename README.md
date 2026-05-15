@@ -82,6 +82,36 @@ You might also want to detect whether your spec suite is running under ParallelR
   do_something unless ParallelRSpec.running?
 ```
 
+## SimpleCov
+
+SimpleCov doesn't track coverage across forked processes by default. ParallelRSpec ships a helper that handles the wiring. For example, in `spec_helper.rb` add something like:
+
+```ruby
+  require 'simplecov'
+  require 'parallel_rspec/simplecov'
+
+  ParallelRSpec.simplecov('rails') do
+    enable_coverage :branch
+    add_filter '/spec/'
+  end
+```
+
+Per-worker output is intentionally always written as a `.resultset.json` so you can use any SimpleCov formatter without it correctly supporting parallel processes etc. Pass a `formatters:` array to control the final format.
+
+```ruby
+  require 'simplecov-cobertura'
+
+  ParallelRSpec.simplecov('rails',
+    formatters: [
+      SimpleCov::Formatter::HTMLFormatter,
+      SimpleCov::Formatter::CoberturaFormatter,
+    ]
+  ) do
+    enable_coverage :branch
+    add_filter '/spec/'
+  end
+```
+
 ## Limitations
 
 ParallelRSpec can't parallelize the specs in groups that use `before(:context)` or `after(:context)` (AKA `before(:all)` or `after(:all)`) hooks, since these may mean that there is state shared between examples.

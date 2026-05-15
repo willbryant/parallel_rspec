@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Add support for simplecov reporting and collation
+
 ## 3.1.0
 
 * Fix example groups with context hooks not being run if any example groups without context hooks failed. Thanks @h-lame.
