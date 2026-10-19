@@ -66,7 +66,7 @@ module ParallelRSpec
 
           persist_example_statuses
 
-          (parallel_success && sequential_success) ? 0 : @configuration.failure_exit_code
+          exit_code(parallel_success && sequential_success)
         end
       end
     end
