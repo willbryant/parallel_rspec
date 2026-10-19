@@ -98,6 +98,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/willbr
 * Erik Paasonen (@erikpaasonen)
 * Peter Retzlaff (@peret)
 * Murray Steele (@h-lame)
+* Alex Kubacki (@UserNotFound)
 
 
 ## License

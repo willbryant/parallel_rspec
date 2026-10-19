@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0
+
+* Ensure errors outside of examples return a non-zero exit status when using `--only-failures`. Thanks @UserNotFound.
+
 ## 3.1.0
 
 * Fix example groups with context hooks not being run if any example groups without context hooks failed. Thanks @h-lame.
